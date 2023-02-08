@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 interface NavValue {
   name: string;
   link: string;
@@ -7,6 +7,7 @@ interface NavValue {
 
 export default function TopNav() {
   const [active, setActive] = useState(0);
+  const navigate = useNavigate();
   const staticNavArray: NavValue[] = [
     { name: "홈", link: "/" },
     { name: "챔피언 분석", link: "/champions" },
@@ -32,6 +33,7 @@ export default function TopNav() {
               className="mr-5 hover:cursor-pointer flex flex-col relative h-full items-center justify-center"
               onClick={() => {
                 setActive(idx);
+                navigate(el.link);
               }}
               key={idx}
             >

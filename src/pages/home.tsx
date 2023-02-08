@@ -1,21 +1,9 @@
 import React, { useState } from "react";
-import "./App.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import axios from "axios";
-interface regionValue {
-  name: string;
-  url: string;
-}
-
+import { regionArray } from "../staticItems";
+import type { regionValue } from "../staticItems";
 function Home() {
-  const regionArray: regionValue[] = [
-    { name: "Korea", url: "kr" },
-    { name: "Korea", url: "kr" },
-    { name: "Korea", url: "kr" },
-    { name: "Korea", url: "kr" },
-    { name: "Korea", url: "kr" },
-    { name: "Korea", url: "kr" },
-  ];
   const [value, setValue] = useState("");
   const [region, setRegion] = useState<regionValue>({
     name: regionArray[0].name,
@@ -29,11 +17,13 @@ function Home() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    console.log(value);
     const response = await axios
       .get(
         `https://${region.url}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${value}?api_key=${process.env.REACT_APP_RIOT_KEY}`
       )
-      .then((data) => console.log(data));
+      .then((data) => data.data);
+    console.log(response);
   };
   return (
     <div className="w-full flex flex-col items-center h-screen bg-mainColor pt-20">
